@@ -1,65 +1,65 @@
 <template>
-  <div class="bag" ref="bag">
-    <h4 class="bag__title">Корзина</h4>
+  <div class="cart" ref="cart">
+    <h4 class="cart__title">Корзина</h4>
     <template v-if="!formSubmit">
       <!-- Корзина пуста -->
       <template v-if="!getListCart.length">
-        <p class="bag__description">
+        <p class="cart__description">
           Пока что вы ничего не добавили в корзину.
         </p>
-        <a href="#" class="bag__link" @click.prevent="hideBag">
+        <a href="#" class="cart__link" @click.prevent="hideCart">
           Перейти к выбору
         </a>
       </template>
       <!-- Карзина с товарами -->
       <template v-else>
-        <p class="bag__description--grey">Товары в корзине</p>
-        <div v-for="item in getListCart" :key="item.id" class="bag__item">
+        <p class="cart__description--grey">Товары в корзине</p>
+        <div v-for="item in getListCart" :key="item.id" class="cart__item">
           <img
             :src="'https://frontend-test.idaproject.com' + item.photo"
             alt=""
-            class="bag__item-img"
+            class="cart__item-img"
           />
-          <h3 class="bag__item-name">{{ item.name }}</h3>
-          <p class="bag__item-price">
+          <h3 class="cart__item-name">{{ item.name }}</h3>
+          <p class="cart__item-price">
             {{ fixPrice(item.price) }}
           </p>
-          <span class="bag__item-rating">
+          <span class="cart__item-rating">
             <img src="~assets/img/rating.svg" alt="" />
             {{ item.rating }}
           </span>
           <img
             @click="delFromCart(item.id)"
-            src="~/assets/img/bag-del.svg"
-            class="bag__item-del"
+            src="~/assets/img/cart-del.svg"
+            class="cart__item-del"
             alt="del"
           />
         </div>
-        <div class="bag__form">
-          <h4 class="bag__form-title">Оформить заказ</h4>
-          <form class="bag__form-form" @submit.prevent="orderProducts">
+        <div class="cart__form">
+          <h4 class="cart__form-title">Оформить заказ</h4>
+          <form class="cart__form-form" @submit.prevent="orderProducts">
             <input
               v-model="name"
               type="text"
               placeholder="Ваше имя"
-              class="bag__form-input"
+              class="cart__form-input"
             />
             <input
               v-model="phone"
               type="tel"
               placeholder="Телефон"
-              class="bag__form-input"
+              class="cart__form-input"
             />
             <input
               v-model="address"
               type="text"
               placeholder="Адрес"
-              class="bag__form-input"
+              class="cart__form-input"
             />
-            <button type="submit" class="bag__form-btn">Отправить</button>
+            <button type="submit" class="cart__form-btn">Отправить</button>
           </form>
           <transition name="translate-full">
-            <p class="bag__form-error" v-if="errorForm">
+            <p class="cart__form-error" v-if="errorForm">
               <img src="~assets/img/error.svg" alt="error" />
               Все поля обязательные.<br />После удачной отправки формы
               содержимое корзины очищается
@@ -70,13 +70,13 @@
     </template>
     <!-- Заявка отправлена -->
     <template v-else>
-      <div class="bag__ok">
-        <img class="bag__ok-img" src="~assets/img/ok.png" alt="OK" />
-        <h4 class="bag__ok-title">Заявка успешно отправлена</h4>
-        <p class="bag__ok-description">Вскоре наш менеджер свяжется с Вами</p>
+      <div class="cart__ok">
+        <img class="cart__ok-img" src="~assets/img/ok.png" alt="OK" />
+        <h4 class="cart__ok-title">Заявка успешно отправлена</h4>
+        <p class="cart__ok-description">Вскоре наш менеджер свяжется с Вами</p>
       </div>
     </template>
-    <div class="bag__close" @click="hideBag"></div>
+    <div class="cart__close" @click="hideCart"></div>
   </div>
 </template>
 
@@ -84,7 +84,7 @@
 import { mapGetters, mapMutations } from "vuex";
 
 export default {
-  name: "Catalog",
+  name: "Cart",
   data() {
     return {
       name: "",
@@ -99,14 +99,14 @@ export default {
   },
   methods: {
     ...mapMutations(["delFromCart", "delAllFromCart"]),
-    hideBag() {
-      this.$emit("hideBag");
+    hideCart() {
+      this.$emit("hideCart");
     },
     orderProducts() {
       if (this.name == "" || this.tel == "" || this.address == "") {
         this.errorForm = true;
         setTimeout(() => {
-          this.$refs.bag.scrollBy({
+          this.$refs.cart.scrollBy({
             top: 1000,
             behavior: "smooth",
           });
@@ -140,7 +140,7 @@ export default {
     },
   },
   mounted() {
-    document.querySelectorAll(".bag__form-input").forEach((i) => {
+    document.querySelectorAll(".cart__form-input").forEach((i) => {
       i.addEventListener("input", (e) => {
         var x = e.target.value
           .replace(/\D/g, "")
@@ -163,7 +163,7 @@ export default {
 </script>
 
 <style lang="scss">
-.bag {
+.cart {
   position: fixed;
   z-index: 10;
   top: 0px;

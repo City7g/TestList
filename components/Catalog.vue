@@ -59,9 +59,9 @@
             {{ item.rating }}
           </span>
           <img
-            src="~/assets/img/bag.svg"
-            class="catalog__item-bag"
-            :class="{ 'in-bag': isItemInBag(item.id) }"
+            src="~/assets/img/cart.svg"
+            class="catalog__item-cart"
+            :class="{ 'in-cart': isItemInCart(item.id) }"
             alt="item"
             @click="addToCard(item.id)"
           />
@@ -102,9 +102,9 @@ export default {
     ...mapMutations(["filterByCategory", "sortByPrice", "sortByRating"]),
     addToCard(id) {
       this.addToCart(id);
-      // this.$emit("showBag");
+      // this.$emit("showCart");
     },
-    isItemInBag(id) {
+    isItemInCart(id) {
       return this.getListIdInCart.indexOf(id) != -1;
     },
     sortBy(value, index) {
@@ -311,7 +311,7 @@ export default {
   margin-right: 2px;
 }
 
-.catalog__item-bag {
+.catalog__item-cart {
   position: absolute;
   top: 16px;
   right: 16px;
@@ -323,8 +323,8 @@ export default {
   transition: 0.3s all ease;
 }
 
-.catalog__item-bag.in-bag,
-.catalog__item-bag:hover {
+.catalog__item-cart.in-cart,
+.catalog__item-cart:hover {
   opacity: 1;
 }
 

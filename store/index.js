@@ -44,8 +44,12 @@ export const mutations = {
 
 export const actions = {
   async loadItems({ commit }) {
-    const items = await this.$axios.$get('https://frontend-test.idaproject.com/api/product')
-    commit('saveItems', items)
+    try {
+      const items = await this.$axios.$get('https://frontend-test.idaproject.com/api/product')
+      commit('saveItems', items)
+    } catch (error) {
+      commit('saveItems', 'Товары не удалось загрузить')
+    }
   },
   async loadCategory({ commit }) {
     const items = await this.$axios.$get('https://frontend-test.idaproject.com/api/product-category')

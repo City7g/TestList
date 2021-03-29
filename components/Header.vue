@@ -2,10 +2,10 @@
   <header class="header">
     <div class="header__wrap">
       <div class="header__name">TestList</div>
-      <div class="header__bag" @click="showBag">
-        <img src="~/assets/img/bag.svg" class="header__bag-img" alt="bag" />
-        <div class="header__bag-count">
-          <span class="header__bag-count-text" ref="counter">0</span>
+      <div class="header__cart" @click="showCart">
+        <img src="~/assets/img/cart.svg" class="header__cart-img" alt="cart" />
+        <div class="header__cart-count">
+          <span class="header__cart-count-text" ref="counter">0</span>
         </div>
       </div>
     </div>
@@ -21,8 +21,8 @@ export default {
     ...mapGetters(["getCounCart"]),
   },
   methods: {
-    showBag() {
-      this.$emit('showBag')
+    showCart() {
+      this.$emit('showCart')
     }
   },
   watch: {
@@ -69,12 +69,12 @@ export default {
   color: #59606d;
 }
 
-.header__bag {
+.header__cart {
   position: relative;
   cursor: pointer;
 }
 
-.header__bag-count {
+.header__cart-count {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -90,14 +90,14 @@ export default {
   overflow: hidden;
 }
 
-.header__bag-count-text {
+.header__cart-count-text {
   color: #fff;
   font-size: 8px;
   line-height: 8px;
   font-weight: 700;
 }
 
-.header__bag-count-text.active {
+.header__cart-count-text.active {
   animation: animation-text 0.6s;
 }
 

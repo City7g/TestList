@@ -1,14 +1,14 @@
 <template>
   <div class="app">
-    <Header @showBag="showBag" />
+    <Header @showCart="showCart" />
     <main class="content">
-      <Catalog @showBag="showBag" />
+      <Catalog @showCart="showCart" />
     </main>
     <transition name="opacity">
-      <div v-if="isBag" class="app__wrap" @click="hideBag"></div>
+      <div v-if="isCart" class="app__wrap" @click="hideCart"></div>
     </transition>
     <transition name="translate-full">
-      <Bag v-if="isBag" @hideBag="hideBag" />
+      <Cart v-if="isCart" @hideCart="hideCart" />
     </transition>
   </div>
 </template>
@@ -16,28 +16,28 @@
 <script>
 import Header from "@/components/Header";
 import Catalog from "@/components/Catalog";
-import Bag from "@/components/Bag";
+import Cart from "@/components/Cart";
 import { mapActions } from "vuex";
 
 export default {
   name: "Index",
   data() {
     return {
-      isBag: false,
+      isCart: false,
     };
   },
   components: {
     Header,
     Catalog,
-    Bag,
+    Cart,
   },
   methods: {
     ...mapActions(["loadItems", "loadCategory", "getCartInStorage"]),
-    showBag() {
-      this.isBag = true;
+    showCart() {
+      this.isCart = true;
     },
-    hideBag() {
-      this.isBag = false;
+    hideCart() {
+      this.isCart = false;
     },
   },
   mounted() {
